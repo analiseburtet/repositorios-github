@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
     function buscarRepositorios(){
-        $.get('https://api.github.com/users/torvalds/repos?page=1&per_page=20', function(data){
+        $.get('https://api.github.com/search/repositories?q=stars:150000..300000', function(data){
             let statusHTML = ""
             $.each(data, function(i, status){
                 statusHTML += '<li class="nav-item border rounded mb-1">'
@@ -16,24 +16,29 @@ $(document).ready(function(){
 
     $(".repo-list").on("click", "a.repo-link", function(e) {
         let repo = $( this ).text()
-        buscarContribuidores(repo)
+        buscarIssues()
         $(".hide").fadeIn("slow");
     })
 
 
-    function buscarContribuidores(repo){
-        const urlBase = 'https://api.github.com/repos/torvalds/'
-        const urlRepo = urlBase + repo + '/collaborators'
-        $.get(urlRepo)
-        .done(function(data){
-            let statusHTML = ""
-            $.each(data, function(i, status){
-                console.log(status)
-                statusHTML += '<li class="nav-item">'
-                statusHTML +=  status
-                statusHTML += '</li>'
-            })
-            $('.repo-list').html(statusHTML)
-        });
+    async function buscarIssues(){
+        const headers = {
+            "Authorization": `Token d34b0d359f9cbafaf361358ba2e0e4084ec9ecfe`
+        }
+
+        const url = "https://api.github.com/search/issues?q=state:open repo:freecodecamp/freecodecamp type:issue"
+        const response = await fetch(url , {
+            "method": "GET",
+            "headers": headers
+        })
+        const data = await response.json()
+        let statusHTML = ""
+        $.each(data, function(i, status){
+            statusHTML += '<li class="nav-item border rounded mb-1">'
+            statusHTML += '<a class="nav-link repo-link">'+ 'titulo da issue' +'</a>'
+            statusHTML += '</li>'
+        })
+        
+        $('.issues-list').html(statusHTML)
     }  
 });
