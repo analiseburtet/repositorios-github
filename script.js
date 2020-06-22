@@ -15,15 +15,17 @@ $(document).ready(function(){
     buscarRepositorios()
 
     $(".repo-list").on("click", "a.repo-link", function(e) {
-        let repo = $( this ).text()
         buscarIssues()
         $(".hide").fadeIn("slow");
     })
 
+    $(".issues-list").on("click", "a.repo-link", function(e) {
+        $(".issue-hide").fadeIn("slow");
+    })
 
     async function buscarIssues(){
         const headers = {
-            "Authorization": `Token d34b0d359f9cbafaf361358ba2e0e4084ec9ecfe`
+            "Authorization": `Token GITHUB_TOKEN_HERE`
         }
 
         const url = "https://api.github.com/search/issues?q=state:open repo:freecodecamp/freecodecamp type:issue"
