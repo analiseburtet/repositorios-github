@@ -1,6 +1,6 @@
 # Repositórios UI 
 
-Baseada em Bootstrap 4, essa UI mostra uma lista de repositórios, busca seus comentários, issues, e contribuidores.
+Baseada em Bootstrap 4, essa UI mostra os repositórios que tem entre 150000 e 300000 estrelas, busca até 30 issues, com a descrição de cada uma.
 
 ## Stack
 

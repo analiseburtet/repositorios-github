@@ -3,7 +3,8 @@
     display: none;
 }
 
-.repo-link:hover {
+.repo-link:hover,
+.issue-link:hover {
     color: #ffffff!important;
     background-color: #0069d9;
     border-color: #0062cc;
