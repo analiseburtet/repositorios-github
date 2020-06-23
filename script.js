@@ -22,6 +22,7 @@ $(document).ready(function(){
 
     $(".repo-list").on("click", "a.repo-link", function(e) {
         let repo = $(this).attr("data-repo-name")
+        buscarContribuidores(repo)
         buscarIssues(repo)
         $(".hide").fadeIn("slow");
         $(this).toggleClass('active')
@@ -44,6 +45,29 @@ $(document).ready(function(){
             "Authorization": `Token GITHUB_TOKEN_HERE`
         }
         const url = urlBase + "/search/issues?q=state:"+ state + "+repo:" + repo + "+type:issue"
+        const response = await fetch(url , {
+            "method": "GET",
+            "headers": headers
+        })
+        const data = await response.json()
+        let array = data.items
+        let statusHTML = ""
+        array.forEach(i => {
+            statusHTML += '<li class="nav-item border rounded mb-1">'
+            statusHTML += '<a class="nav-link issue-link">'+ i.title +'</a>'
+            statusHTML += '<div class="nav-link">'+ i.body +'</div>'
+            statusHTML += '</li>'
+        })
+        $('.issues-list').html(statusHTML)
+    }  
+
+        async function buscarContribuidores(repo){
+        const headers = {
+            "Authorization": `Token GITHUB_TOKEN_HERE`,
+            "Accept": "application/vnd.github.cloak-preview"
+        }
+        const url = urlBase + "/search/commits?q=repo:" + repo
+        console.log(url)
         const response = await fetch(url , {
             "method": "GET",
             "headers": headers
