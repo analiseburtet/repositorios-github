@@ -9,3 +9,24 @@
     background-color: #0069d9;
     border-color: #0062cc;
 }
+
+.bold {
+    font-weight: 900;
+}
+
+input {
+    display: none;
+}
+
+.issues-list li {
+    width: 100%;
+}
+
+.repo-list li {
+    padding: 0;
+}
+
+.issues {
+    justify-content: space-between;
+    align-items: center;
+}

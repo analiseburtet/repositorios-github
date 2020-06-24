@@ -1,6 +1,6 @@
 # Repositórios UI 
 
-Baseada em Bootstrap 4, essa UI mostra os repositórios que tem entre 150000 e 300000 estrelas, busca até 30 issues, com a descrição de cada uma.
+Baseada em Bootstrap 4, essa UI mostra os repositórios que tem entre 150000 e 300000 estrelas, busca até 30 issues, com a descrição de cada uma e comentários(se houver). Filtra issues por closed e open. Agrupa contribuidores por quantidade de contribuições.
 
 ## Stack
 
@@ -12,5 +12,5 @@ Baseada em Bootstrap 4, essa UI mostra os repositórios que tem entre 150000 e 3
 ## Como rodar o projeto
 
 - clone o projeto;
-- Atualize o script.js de ``` GITHUB_TOKEN_HERE ``` para o seu github token;
+- Atualize o TOKEN de  ``` GITHUB_TOKEN_HERE ``` para o seu [github token](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line);
 - Abra o index.html no browser.
