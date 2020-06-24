@@ -54,33 +54,57 @@ $(document).ready(function(){
         let statusHTML = ""
         array.forEach(i => {
             statusHTML += '<li class="nav-item border rounded mb-1">'
-            statusHTML += '<a class="nav-link issue-link">'+ i.title +'</a>'
+            statusHTML += '<a class="nav-link issue-link" data-issue-number="'+ i.number +'">'+ i.title +'</a>'
             statusHTML += '<div class="nav-link">'+ i.body +'</div>'
             statusHTML += '</li>'
         })
         $('.issues-list').html(statusHTML)
+
+        $("body").on("click", ".issue-link", function(e) {
+            let issueNumber = $(this).attr("data-issue-number")
+            buscarComentarios(repo, issueNumber)
+            $(this).toggleClass('active')
+        })
     }  
 
-        async function buscarContribuidores(repo){
+    async function buscarContribuidores(repo){
         const headers = {
             "Authorization": `Token GITHUB_TOKEN_HERE`,
             "Accept": "application/vnd.github.cloak-preview"
         }
-        const url = urlBase + "/search/commits?q=repo:" + repo
-        console.log(url)
+        const url = urlBase + "/repos/" + repo + "/contributors?q=contributions&order=desc"
         const response = await fetch(url , {
             "method": "GET",
             "headers": headers
         })
         const data = await response.json()
-        let array = data.items
         let statusHTML = ""
-        array.forEach(i => {
+        data.forEach(i => {
             statusHTML += '<li class="nav-item border rounded mb-1">'
-            statusHTML += '<a class="nav-link issue-link">'+ i.title +'</a>'
-            statusHTML += '<div class="nav-link">'+ i.body +'</div>'
+            statusHTML += '<a class="nav-link">'+ i.login +'</a>'
             statusHTML += '</li>'
         })
-        $('.issues-list').html(statusHTML)
+        $('.constributors-list').html(statusHTML)
     }  
+
+    async function buscarComentarios(repo){
+        const headers = {
+            "Authorization": `Token GITHUB_TOKEN_HERE`,
+            "Accept": "application/vnd.github.cloak-preview" 
+        }
+        const url = urlBase + "/repos/" + repo + "/issues/"+ "19046" +"/comments"
+        const response = await fetch(url , {
+            "method": "GET",
+            "headers": headers
+        })
+        const data = await response.json()
+        let statusHTML = ""
+
+        data.forEach(i => {
+            statusHTML += '<div class="nav-item nav-link border rounded mb-1">'
+            statusHTML += i.body
+            statusHTML += '</div>'
+        })
+        $('.comments-list').html(statusHTML)
+    }
 });
